@@ -1,0 +1,122 @@
+[
+  {
+    "pattern": "/https?:\\/\\/gx-d3f\\.pages\\.dev/i",
+    "risk": "high",
+    "label": "URL: gx-d3f.pages.dev"
+  },
+  {
+    "pattern": "/https?:\\/\\/raw\\.githubusercontent\\.com/i",
+    "risk": "high",
+    "label": "URL: raw.githubusercontent.com"
+  },
+  {
+    "pattern": "/base64_decode\\s*\\(\\s*[\"']aHR0cHM6Ly9neC1kM2YucGFnZXMuZGV2/i",
+    "risk": "high",
+    "label": "Base64: gx-d3f.pages.dev"
+  },
+  {
+    "pattern": "/base64_decode\\s*\\(\\s*[\"']aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29t/i",
+    "risk": "high",
+    "label": "Base64: raw.githubusercontent.com"
+  },
+  {
+    "pattern": "/\\beval\\s*\\(/i",
+    "risk": "critical",
+    "label": "Dangerous: eval()"
+  },
+  {
+    "pattern": "/\\bgzinflate\\s*\\(/i",
+    "risk": "high",
+    "label": "Obfuscation: gzinflate()"
+  },
+  {
+    "pattern": "/\\bgzuncompress\\s*\\(/i",
+    "risk": "high",
+    "label": "Obfuscation: gzuncompress()"
+  },
+  {
+    "pattern": "/base64_decode\\s*\\(\\s*[\"'][A-Za-z0-9+\\/\\r\\n]{100,}[\"']\\s*\\)/i",
+    "risk": "high",
+    "label": "Large Base64 literal (possible payload)"
+  },
+  {
+    "pattern": "/preg_replace\\s*\\(\\s*[^,]+,\\s*[^,]*\\/.*\\/e\\s*\\)/i",
+    "risk": "high",
+    "label": "Deprecated / eval-like preg_replace /e"
+  },
+  {
+    "pattern": "/\\b(assert|create_function)\\s*\\(/i",
+    "risk": "high",
+    "label": "Dangerous: assert/create_function"
+  },
+  {
+    "pattern": "/\\b(system|exec|passthru|shell_exec|popen|proc_open)\\s*\\(/i",
+    "risk": "high",
+    "label": "Command execution functions"
+  },
+  {
+    "pattern": "/(include|require)(_once)?\\s*\\(\\s*[\"']?https?:\\/\\//i",
+    "risk": "critical",
+    "label": "Remote include/require over HTTP(S)"
+  },
+  {
+    "pattern": "/file_get_contents\\s*\\(\\s*[\"']https?:\\/\\//i",
+    "risk": "high",
+    "label": "Remote fetch via file_get_contents"
+  },
+  {
+    "pattern": "/curl_exec\\s*\\(/i",
+    "risk": "medium",
+    "label": "cURL execution (network activity)"
+  },
+  {
+    "pattern": "/\\$_(GET|POST|REQUEST|COOKIE|SERVER)\\s*\\[/i",
+    "risk": "medium",
+    "label": "Superglobal access (possible backdoor input)"
+  },
+  {
+    "pattern": "/(\\$[a-zA-Z_][a-zA-Z0-9_]*\\s*=\\s*str_rot13\\s*\\(|\\bstr_rot13\\s*\\()/i",
+    "risk": "medium",
+    "label": "Obfuscation: str_rot13"
+  },
+  {
+    "pattern": "/\\\\x[0-9A-Fa-f]{2,}/",
+    "risk": "medium",
+    "label": "Hex-escaped bytes (obfuscation)"
+  },
+  {
+    "pattern": "/<\\?php.*?<\\?php/si",
+    "risk": "medium",
+    "label": "Multiple PHP open tags (possible concatenated payloads)"
+  },
+  {
+    "pattern": "/<\\?(?:php)?[^>]{0,200}\\?>/si",
+    "risk": "low",
+    "label": "PHP block present"
+  },
+  {
+    "pattern": "/\\b(tempnam|sys_get_temp_dir)\\s*\\(/i",
+    "risk": "low",
+    "label": "Temp file usage"
+  },
+  {
+    "pattern": "/file_put_contents\\s*\\(\\s*[^,]+\\s*,\\s*\\$?([\\s\\S]{0,200})\\)/i",
+    "risk": "medium",
+    "label": "Write to file (monitor for suspicious targets)"
+  },
+  {
+    "pattern": "/\\b(base64_decode|gzinflate|gzuncompress|str_rot13|pack)\\s*\\(/i",
+    "risk": "high",
+    "label": "Common decoder functions"
+  },
+  {
+    "pattern": "/eval\\s*\\(\\s*base64_decode\\s*\\(/i",
+    "risk": "critical",
+    "label": "eval(base64_decode(...)) pattern"
+  },
+  {
+    "pattern": "/@?unlink\\s*\\(\\s*\\$?\\w+/i",
+    "risk": "medium",
+    "label": "File deletion (possible cleanup of traces)"
+  }
+]
